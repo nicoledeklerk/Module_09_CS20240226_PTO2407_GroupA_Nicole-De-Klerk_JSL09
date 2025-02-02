@@ -26,6 +26,24 @@ fetch("https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&que
         return res.json()
     })
     .then(data => {
-        console.log(data)
+
+        document.getElementById("crypto").innerHTML = `
+            <img src=${data.image.small} />
+            <span>${data.name}</span>
+        `
+
+        document.getElementById("crypto").innerHTML += `
+            <p>🎯: R ${data.market_data.current_price.usd}</p>
+            <p>👆: R ${data.market_data.high_24h.usd}</p>
+            <p>👇: R ${data.market_data.low_24h.usd}</p>
+        `
+
     })
     .catch(err => console.error(err))
+
+    function getCurrentTime() {
+        const date = new Date()
+        document.getElementById("time").textContent = date.toLocaleTimeString("en-us", {timeStyle: "short"})
+    }
+    
+    setInterval(getCurrentTime, 1000)
